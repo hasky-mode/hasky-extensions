@@ -31,6 +31,51 @@
 (require 'cl-lib)
 (require 'hasky-extensions)
 
+(defmacro run-with-file (filename &rest body)
+  "Load FILENAME in a temporary buffer and evaluate BODY."
+  `(with-temp-buffer
+     (insert-file-contents ,filename)
+     ,@body))
+
+;; `hasky-extensions-list'
+
+(ert-deftest hasky-extensions-list/empty ()
+  (should (equal (run-with-file "test/data/Empty.hs"
+                                (hasky-extensions-list))
+                 nil)))
+
+(ert-deftest hasky-extensions-list/empty-with-header ()
+  (should (equal (run-with-file "test/data/EmptyWithHeader.hs"
+                                (hasky-extensions-list))
+                 nil)))
+
+(ert-deftest hasky-extensions-list/empty-with-header-ext ()
+  (should (equal (run-with-file "test/data/EmptyWithHeaderExt.hs"
+                                (hasky-extensions-list))
+                 '("CPP"))))
+
+(ert-deftest hasky-extensions-list/no-header ()
+  (should (equal (run-with-file "test/data/NoHeader.hs"
+                                (hasky-extensions-list))
+                 '("PolyKinds"
+                   "GADTs"
+                   "DataKinds"))))
+
+(ert-deftest hasky-extensions-list/with-header ()
+  (should (equal (run-with-file "test/data/WithHeader.hs"
+                                (hasky-extensions-list))
+                 '("TupleSections"
+                   "OverloadedStrings"
+                   "DataKinds"))))
+
+(ert-deftest hasky-extensions-list/tricky-space ()
+  (should (equal (run-with-file "test/data/TrickySpace.hs"
+                                (hasky-extensions-list))
+                 '("CPP"
+                   "DeriveDataTypeable"
+                   "OverloadedStrings"
+                   "DataKinds"))))
+
 (provide 'hasky-extensions-test)
 
 ;;; hasky-extensions-test.el ends here
