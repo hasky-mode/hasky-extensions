@@ -127,11 +127,11 @@ with “default-extensions” or similar settings."
 
 (defun hasky-extensions-add (extension)
   "Insert EXTENSION into appropriate place in current file."
-  (message "I'm adding %s, honest!" extension)) ;; TODO
+  nil) ;; TODO
 
 (defun hasky-extensions-remove (extension)
   "Remove EXTENSION from current file (if present)."
-  (message "I'm removing %s, honest!" extension)) ;; TODO
+  nil) ;; TODO
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
