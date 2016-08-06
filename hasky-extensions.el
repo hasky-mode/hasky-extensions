@@ -41,6 +41,121 @@
   :link   '(url-link :tag "GitHub"
                      "https://github.com/hasky-mode/hasky-extensions"))
 
+(defface hasky-extensions-disabled
+  '((t (:inherit font-lock-comment-face)))
+  "Face used to print disabled Haskell extensions in the menu.")
+
+(defface hasky-extensions-enabled
+  '((t (:inherit font-lock-keyword-face)))
+  "Face used to print enabled Haskell extensions in the menu.")
+
+(defvar hasky-extensions ;; TODO work on right order here
+  '("Arrows"
+    "AutoDeriveTypeable"
+    "BangPatterns"
+    "CPP"
+    "DataKinds"
+    "DeriveAnyClass"
+    "DeriveDataTypeable"
+    "DeriveFoldable"
+    "DeriveFunctor"
+    "DeriveGeneric"
+    "DeriveTraversable"
+    "EmptyDataDecls"
+    "ExistentialQuantification"
+    "ExplicitForAll"
+    "FlexibleContexts"
+    "FlexibleInstances"
+    "ForeignFunctionInterface"
+    "FunctionalDependencies"
+    "GADTs"
+    "GeneralizedNewtypeDeriving"
+    "InstanceSigs"
+    "KindSignatures"
+    "MagicHash"
+    "MultiParamTypeClasses"
+    "MultiWayIf"
+    "NoImplicitPrelude"
+    "OverloadedLists"
+    "OverloadedStrings"
+    "PolyKinds"
+    "QuasiQuotes"
+    "RankNTypes"
+    "RecordWildCards"
+    "RecursiveDo"
+    "ScopedTypeVariables"
+    "StandaloneDeriving"
+    "TemplateHaskell"
+    "TupleSections"
+    "TypeFamilies"
+    "TypeOperators"
+    "TypeSynonymInstances"
+    "UndecidableInstances"
+    "ViewPatterns")
+  "List of commonly used Haskell extensions.")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; The editing itself
+
+(defun hasky-extensions-list ()
+  "List all active Haskell extensions in current file.
+
+Returned list is always a fresh one (you can perform destructive
+operations on it without fear).
+
+This does not take into account extensions enabled in Cabal file
+with “default-extensions” or similar settings."
+  '("TypeFamilies" "RecursiveDo")) ;; FIXME
+
+(defun hasky-extensions-add (extension)
+  "Insert EXTENSION into appropriate place in current file."
+  (message "I'm adding %s, honest!" extension)) ;; TODO
+
+(defun hasky-extensions-remove (extension)
+  "Remove EXTENSION from current file (if present)."
+  (message "I'm removing %s, honest!" extension)) ;; TODO
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; User interface
+
+(defun hasky-extensions ()
+  "Invoke the menu that allows to add and remove Haskell language extensions."
+  (interactive)
+  (let ((exts (hasky-extensions-list))
+        (selected t))
+    (while selected
+      (setq
+       selected
+       (avy-menu
+        "*hasky-extensions*"
+        (cons
+         "Haskell Extensions"
+         (list
+          (cons
+           "Pane"
+           (mapcar
+            (lambda (x)
+              (let ((active (cl-find x exts :test #'string=)))
+                (cons
+                 (propertize
+                  x
+                  'face
+                  (if active
+                      'hasky-extensions-enabled
+                    'hasky-extensions-disabled))
+                 (cons x active))))
+            hasky-extensions))))))
+      (when selected
+        (cl-destructuring-bind (ext . active) selected
+          (if active
+              (progn
+                (hasky-extensions-remove ext)
+                (setq exts (cl-delete ext exts :test #'string=)))
+            (hasky-extensions-add ext)
+            (cl-pushnew ext exts :test #'string=)))))))
+
 (provide 'hasky-extensions)
 
 ;;; hasky-extensions.el ends here
