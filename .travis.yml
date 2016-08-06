@@ -1,3 +1,5 @@
+language: c
+
 env:
   matrix:
     - EMACS=emacs24
@@ -29,7 +31,7 @@ install:
   - cask install
 
 script:
-  - cask build
+  - cask exec ert-runner
 
 notifications:
   email: false
