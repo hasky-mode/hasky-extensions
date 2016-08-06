@@ -94,6 +94,16 @@
     "ViewPatterns")
   "List of commonly used Haskell extensions.")
 
+(defvar hasky-extensions-reach 5000
+  "Max number of characters from beginning of file to search.
+
+Very large files can either slow down the process of extensions
+detection or cause stack overflows, thus we limit number of
+characters the package will traverse.  The default value should
+be appropriate for most users since language extension pragmas
+are typically placed in the beginning of file.  If you wish to
+disable the limitation, set this value to NIL (not recommended).")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The editing itself
@@ -106,7 +116,14 @@ operations on it without fear).
 
 This does not take into account extensions enabled in Cabal file
 with “default-extensions” or similar settings."
-  '("TypeFamilies" "RecursiveDo")) ;; FIXME
+  (let (exts)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward
+              "^\\s-*{-#\\s-*LANGUAGE\\s-+\\([[:alnum:]]+\\)\\s-*#-}\\s-*$"
+              hasky-extensions-reach t)
+        (push (match-string-no-properties 1) exts)))
+    exts))
 
 (defun hasky-extensions-add (extension)
   "Insert EXTENSION into appropriate place in current file."
