@@ -50,7 +50,7 @@
   '((t (:inherit font-lock-keyword-face)))
   "Face used to print enabled Haskell extensions in the menu.")
 
-(defvar hasky-extensions
+(defcustom hasky-extensions
   '("OverloadedStrings"
     "RecordWildCards"
     "CPP"
@@ -93,9 +93,11 @@
     "TypeSynonymInstances"
     "UndecidableInstances"
     "ViewPatterns")
-  "List of commonly used Haskell extensions.")
+  "List of commonly used Haskell extensions."
+  :tag "List of commonly used Haskell extensions."
+  :type '(repeat (string :tag "Extension name")))
 
-(defvar hasky-extensions-reach 5000
+(defcustom hasky-extensions-reach 5000
   "Max number of characters from beginning of file to search.
 
 Very large files can either slow down the process of extensions
@@ -103,7 +105,14 @@ detection or cause stack overflows, thus we limit number of
 characters the package will traverse.  The default value should
 be appropriate for most users since language extension pragmas
 are typically placed in the beginning of file.  If you wish to
-disable the limitation, set this value to NIL (not recommended).")
+disable the limitation, set this value to NIL (not recommended)."
+  :tag "How many characters from beginning of file to scan"
+  :type 'integer)
+
+(defcustom hasky-extensions-prettifying-hook nil
+  "Hook to run after prettifying of extension section."
+  :tag "Hooks to run after prettifying list of extensions"
+  :type 'hook)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -152,7 +161,8 @@ with “default-extensions” or similar settings."
         (let ((end (point))
               (indent-tabs-mode nil))
           (sort-lines nil beg end)
-          (align-regexp beg end "\\(\\s-*\\)#-}"))))))
+          (align-regexp beg end "\\(\\s-*\\)#-}")))))
+  (run-hooks 'hasky-extensions-prettifying-hook))
 
 (defun hasky-extensions-add (extension)
   "Insert EXTENSION into appropriate place in current file."
