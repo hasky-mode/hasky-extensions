@@ -32,6 +32,7 @@
 
 (require 'avy-menu)
 (require 'cl-lib)
+(require 'simple)
 
 (defgroup hasky-extensions nil
   "Toggle Haskell language extensions."
@@ -145,8 +146,11 @@ with “default-extensions” or similar settings."
         (goto-char beg)
         (while (progn
                  (forward-line)
+                 (when (looking-at "^\\s-+")
+                   (delete-region (match-beginning 0) (match-end 0)))
                  (looking-at "^\\s-*{-#.*?#-}\\s-*$")))
-        (let ((end (point)))
+        (let ((end (point))
+              (indent-tabs-mode nil))
           (sort-lines nil beg end)
           (align-regexp beg end "\\(\\s-*\\)#-}"))))))
 

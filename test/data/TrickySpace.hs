@@ -1,4 +1,4 @@
-{-# LANGUAGE   DataKinds    #-}
+{-# LANGUAGE DataKinds    #-}
   {-# LANGUAGE OverloadedStrings #-}
- {-#    LANGUAGE  DeriveDataTypeable #-}
+ {-# LANGUAGE DeriveDataTypeable #-}
   {-# LANGUAGE CPP    #-}
