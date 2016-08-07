@@ -118,7 +118,7 @@ If EXT is supplied, find this particular extension."
            (if ext
                (regexp-quote ext)
              "[[:alnum:]]+")
-           "\\)\\s-*#-}\\s-*$")
+           "\\)\\s-*#-}\\s-*?$")
    hasky-extensions-reach t))
 
 (defun hasky-extensions-list ()
@@ -146,9 +146,9 @@ with “default-extensions” or similar settings."
         (goto-char beg)
         (while (progn
                  (forward-line)
-                 (when (looking-at "^\\s-+")
-                   (delete-region (match-beginning 0) (match-end 0)))
-                 (looking-at "^\\s-*{-#.*?#-}\\s-*$")))
+                 (when (looking-at "\\(^\\s-+\\){-#")
+                   (delete-region (match-beginning 1) (match-end 1)))
+                 (looking-at "^\\s-*{-#.*?#-}\\s-*?$")))
         (let ((end (point))
               (indent-tabs-mode nil))
           (sort-lines nil beg end)
@@ -177,8 +177,9 @@ with “default-extensions” or similar settings."
     (goto-char (point-min))
     (when (hasky-extensions--next-ext extension)
       (delete-region (match-beginning 0) (match-end 0))
-      (when (looking-at "$")
-        (delete-char 1))
+      (unless (eobp)
+        (when (looking-at "$")
+          (delete-char 1)))
       (hasky-extensions--prettify-exts))))
 
 
