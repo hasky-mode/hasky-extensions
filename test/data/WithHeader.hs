@@ -12,6 +12,7 @@
 {-# LANGUAGE DataKinds         #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TupleSections     #-}
+{-# OPTIONS_HADDOCK not-home   #-}
 
 module Main (main) where
 

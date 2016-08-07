@@ -9,8 +9,9 @@
 --
 -- Not every file has a nice header, but this one does.
 
-{-# LANGUAGE DataKinds     #-}
-{-# LANGUAGE TupleSections #-}
+{-# LANGUAGE DataKinds       #-}
+{-# LANGUAGE TupleSections   #-}
+{-# OPTIONS_HADDOCK not-home #-}
 
 module Main (main) where
 

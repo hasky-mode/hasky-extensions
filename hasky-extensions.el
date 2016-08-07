@@ -108,6 +108,18 @@ disable the limitation, set this value to NIL (not recommended).")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The editing itself
 
+(defun hasky-extensions--next-ext (&optional ext)
+  "Find and return name of next extensions in the file or NIL.
+
+If EXT is supplied, find this particular extension."
+  (re-search-forward
+   (concat "^\\s-*{-#\\s-*LANGUAGE\\s-+\\("
+           (if ext
+               (regexp-quote ext)
+             "[[:alnum:]]+")
+           "\\)\\s-*#-}\\s-*$")
+   hasky-extensions-reach t))
+
 (defun hasky-extensions-list ()
   "List all active Haskell extensions in current file.
 
@@ -119,11 +131,24 @@ with “default-extensions” or similar settings."
   (let (exts)
     (save-excursion
       (goto-char (point-min))
-      (while (re-search-forward
-              "^\\s-*{-#\\s-*LANGUAGE\\s-+\\([[:alnum:]]+\\)\\s-*#-}\\s-*$"
-              hasky-extensions-reach t)
+      (while (hasky-extensions--next-ext)
         (push (match-string-no-properties 1) exts)))
     exts))
+
+(defun hasky-extensions--prettify-exts ()
+  "Find, sort, and align extensions in current file if necessary."
+  (save-excursion
+    (goto-char (point-min))
+    (let ((beg (when (hasky-extensions--next-ext)
+                 (match-beginning 0))))
+      (when beg
+        (goto-char beg)
+        (while (progn
+                 (forward-line)
+                 (looking-at "^\\s-*{-#.*?#-}\\s-*$")))
+        (let ((end (point)))
+          (sort-lines nil beg end)
+          (align-regexp beg end "\\(\\s-*\\)#-}"))))))
 
 (defun hasky-extensions-add (extension)
   "Insert EXTENSION into appropriate place in current file."
@@ -131,7 +156,13 @@ with “default-extensions” or similar settings."
 
 (defun hasky-extensions-remove (extension)
   "Remove EXTENSION from current file (if present)."
-  nil) ;; TODO
+  (save-excursion
+    (goto-char (point-min))
+    (when (hasky-extensions--next-ext extension)
+      (delete-region (match-beginning 0) (match-end 0))
+      (when (looking-at "$")
+        (delete-char 1))
+      (hasky-extensions--prettify-exts))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
