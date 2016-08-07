@@ -207,6 +207,7 @@ with “default-extensions” or similar settings."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; User interface
 
+;;;###autoload
 (defun hasky-extensions ()
   "Invoke the menu that allows to add and remove Haskell language extensions."
   (interactive)
