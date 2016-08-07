@@ -167,6 +167,18 @@ with “default-extensions” or similar settings."
     (goto-char (point-min))
     (let ((ext (format "{-# LANGUAGE %s #-}\n" extension)))
       (cond ((hasky-extensions--next-ext) (beginning-of-line))
+            ;; TODO here should be detection of module declaration
+            ((let (going)
+               (goto-char (point-min))
+               (while (re-search-forward
+                       "^--.*?$"
+                       hasky-extensions-reach
+                       t)
+                 (setq going t))
+               going)
+             (goto-char (match-end 0))
+             (forward-line)
+             (newline))
             (t (goto-char (point-min))))
       (insert ext)
       (hasky-extensions--prettify-exts))))
