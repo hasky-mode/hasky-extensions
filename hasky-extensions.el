@@ -152,7 +152,20 @@ with “default-extensions” or similar settings."
 
 (defun hasky-extensions-add (extension)
   "Insert EXTENSION into appropriate place in current file."
-  nil) ;; TODO
+  ;; NOTE There are several scenarios we should support.  First, if file
+  ;; contains some extensions already, we should add the new one to them.
+  ;; If there is no extensions in the file yet, place the new one before
+  ;; module declaration (with one empty line between them).  If The file
+  ;; contains no module declaration yet, place the new extension after
+  ;; header.  If the file has no header, place the new extension at the
+  ;; beginning of file.
+  (save-excursion
+    (goto-char (point-min))
+    (let ((ext (format "{-# LANGUAGE %s #-}\n" extension)))
+      (cond ((hasky-extensions--next-ext) (beginning-of-line))
+            (t (goto-char (point-min))))
+      (insert ext)
+      (hasky-extensions--prettify-exts))))
 
 (defun hasky-extensions-remove (extension)
   "Remove EXTENSION from current file (if present)."
