@@ -164,10 +164,19 @@ with “default-extensions” or similar settings."
   ;; header.  If the file has no header, place the new extension at the
   ;; beginning of file.
   (save-excursion
-    (goto-char (point-min))
     (let ((ext (format "{-# LANGUAGE %s #-}\n" extension)))
-      (cond ((hasky-extensions--next-ext) (beginning-of-line))
-            ;; TODO here should be detection of module declaration
+      (cond ((progn
+               (goto-char (point-min))
+               (hasky-extensions--next-ext))
+             (beginning-of-line))
+            ((progn
+               (goto-char (point-min))
+               (re-search-forward
+                "^module"
+                hasky-extensions-reach
+                t))
+             (beginning-of-line)
+             (open-line 1))
             ((let (going)
                (goto-char (point-min))
                (while (re-search-forward
