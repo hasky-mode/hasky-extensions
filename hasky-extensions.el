@@ -115,6 +115,16 @@ disable the limitation, set this value to NIL (not recommended)."
   :tag "How many characters from beginning of file to scan"
   :type 'integer)
 
+(defcustom hasky-extensions-sorting t
+  "Whether to keep the collection of extensions sorted."
+  :tag "Keep list of extensions sorted"
+  :type 'boolean)
+
+(defcustom hasky-extensions-aligning t
+  "Whether to keep closing braces of extension pragmas aligned."
+  :tag "Keep closing braces of extension pragmas aligned"
+  :type 'boolean)
+
 (defcustom hasky-extensions-prettifying-hook nil
   "Hook to run after prettifying of extension section."
   :tag "Hooks to run after prettifying list of extensions"
@@ -166,8 +176,10 @@ with “default-extensions” or similar settings."
                  (looking-at "^\\s-*{-#.*?#-}\\s-*?$")))
         (let ((end (point))
               (indent-tabs-mode nil))
-          (sort-lines nil beg end)
-          (align-regexp beg end "\\(\\s-*\\)#-}")))))
+          (when hasky-extensions-sorting
+            (sort-lines nil beg end))
+          (when hasky-extensions-aligning
+            (align-regexp beg end "\\(\\s-*\\)#-}"))))))
   (run-hooks 'hasky-extensions-prettifying-hook))
 
 (defun hasky-extensions-add (extension)

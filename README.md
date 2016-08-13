@@ -45,6 +45,12 @@ hasky-extensions RET</kbd>. Most important variables are:
   to scan. We cannot always scan entire files because they can be quite big,
   the default value, however, should be OK in 99.99% of cases.
 
+* `hasky-extensions-sorting` — whether to keep the collection of extensions
+  sorted, default is `t`.
+
+* `hasky-extensions-aligning` — whether to keep closing braces of extension
+  pragmas aligned, default is `t`.
+
 * `hasky-extensions-prettifying-hook` — the hook to run after prettifying
   the extension list. For example, you could run `whitespace-cleanup` there.
 
