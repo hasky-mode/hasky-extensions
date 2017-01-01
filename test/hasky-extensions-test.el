@@ -1,6 +1,6 @@
 ;;; hasky-extensions-test.el --- Tests for Hasky Extensions -*- lexical-binding: t; -*-
 ;;
-;; Copyright © 2016 Mark Karpov <markkarpov@openmailbox.org>
+;; Copyright © 2016–2017 Mark Karpov <markkarpov@openmailbox.org>
 ;;
 ;; Author: Mark Karpov <markkarpov@openmailbox.org>
 ;; URL: https://github.com/hasky-mode/hasky-extensions
