@@ -82,6 +82,7 @@
     "GeneralizedNewtypeDeriving"
     "InstanceSigs"
     "KindSignatures"
+    "LambdaCase"
     "MagicHash"
     "MultiParamTypeClasses"
     "MultiWayIf"
@@ -97,8 +98,7 @@
     "TypeFamilies"
     "TypeOperators"
     "TypeSynonymInstances"
-    "UndecidableInstances"
-    "ViewPatterns")
+    "UndecidableInstances")
   "List of commonly used Haskell extensions."
   :tag "List of commonly used Haskell extensions."
   :type '(repeat (string :tag "Extension name")))
