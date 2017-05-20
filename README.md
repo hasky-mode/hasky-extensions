@@ -7,8 +7,8 @@
 
 The package provides a way to add and remove Haskell language extensions
 easily from any place in a file without moving the point. This is done with
-help of a menu where the most popular language extensions are assigned just
-one letter to toggle, while the others require two key strokes:
+the help of a menu where the most popular language extensions are assigned
+just one letter to toggle, while the others require two key strokes:
 
 ![Hasky extensions](https://raw.githubusercontent.com/hasky-mode/hasky-extensions/gh-pages/hasky-extensions.png)
 
@@ -39,25 +39,25 @@ wish to toggle. To exit the menu press <kbd>C-g</kbd>.
 To view available customization options, type <kbd>M-x customize-group RET
 hasky-extensions RET</kbd>. Most important variables are:
 
-* `hasky-extensions` — list of all extensions to show in the menu.
+* `hasky-extensions`—list of all extensions to show in the menu.
 
-* `hasky-extensions-reach` — how many characters from the beginning of file
-  to scan. We cannot always scan entire files because they can be quite big,
+* `hasky-extensions-reach`—how many characters from the beginning of file to
+  scan. We cannot always scan entire files because they can be quite big,
   the default value, however, should be OK in 99.99% of cases.
 
-* `hasky-extensions-sorting` — whether to keep the collection of extensions
+* `hasky-extensions-sorting`—whether to keep the collection of extensions
   sorted, default is `t`.
 
-* `hasky-extensions-aligning` — whether to keep closing braces of extension
+* `hasky-extensions-aligning`—whether to keep closing braces of extension
   pragmas aligned, default is `t`.
 
-* `hasky-extensions-prettifying-hook` — the hook to run after prettifying
-  the extension list. For example, you could run `whitespace-cleanup` there.
+* `hasky-extensions-prettifying-hook`—the hook to run after prettifying the
+  extension list. For example, you could run `whitespace-cleanup` there.
 
-The package in powered by the
-[`avy-menu`](https://github.com/mrkkrp/avy-menu) library, which implements
-this handy Avy-powered popup menu. To control appearance of the menu, use
-<kbd>M-x customize-group avy-menu RET</kbd>.
+The package in powered by
+the [`avy-menu`](https://github.com/mrkkrp/avy-menu) library, which
+implements this handy Avy-powered popup menu. To control appearance of the
+menu, use <kbd>M-x customize-group avy-menu RET</kbd>.
 
 ## License
 
