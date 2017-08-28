@@ -103,6 +103,103 @@
   :tag "List of commonly used Haskell extensions."
   :type '(repeat (string :tag "Extension name")))
 
+(defcustom hasky-extensions-docs
+  '(("AllowAmbiguousTypes"        "ambiguous-types-and-the-ambiguity-check")
+    ("Arrows"                     "arrow-notation")
+    ("ApplicativeDo"              "applicative-do-notation")
+    ("BangPatterns"               "bang-patterns-informal")
+    ("BinaryLiterals"             "ghc-flag--XBinaryLiterals")
+    ("ConstrainedClassMethods"    "constrained-class-method-types")
+    ("ConstraintKinds"            "the-constraint-kind")
+    ("DataKinds"                  "datatype-promotion")
+    ("DefaultSignatures"          "default-method-signatures")
+    ("DeriveAnyClass"             "deriving-any-other-class")
+    ("DeriveDataTypeable"         "deriving-data-instances")
+    ("DeriveFunctor"              "deriving-instances-of-extra-classes-data-etc")
+    ("DeriveFoldable"             "")
+    ("DeriveGeneric"              "")
+    ("DeriveLift"                 "")
+    ("DeriveTraversable"          "")
+    ("DisambiguateRecordFields"   "")
+    ("EmptyCase"                  "")
+    ("EmptyDataDecls"             "")
+    ("ExistentialQuantification"  "")
+    ("ExplicitForAll"             "")
+    ("ExplicitNamespaces"         "")
+    ("ExtendedDefaultRules"       "")
+    ("FlexibleContexts"           "")
+    ("FlexibleInstances"          "")
+    ("ForeignFunctionInterface"   "")
+    ("FunctionalDependencies"     "")
+    ("GADTs"                      "")
+    ("GADTSyntax"                 "")
+    ("GeneralizedNewtypeDeriving" "")
+    ("Generics"                   "")
+    ("ImplicitParams"             "")
+    ("NoImplicitPrelude"          "")
+    ("ImpredicativeTypes"         "")
+    ("IncoherentInstances"        "")
+    ("TypeFamilyDependencies"     "")
+    ("InstanceSigs"               "")
+    ("InterruptibleFFI"           "")
+    ("KindSignatures"             "")
+    ("LambdaCase"                 "")
+    ("LiberalTypeSynonyms"        "")
+    ("MagicHash"                  "")
+    ("MonadComprehensions"        "")
+    ("MonoLocalBinds"             "")
+    ("NoMonomorphismRestriction"  "")
+    ("MultiParamTypeClasses"      "")
+    ("MultiWayIf"                 "")
+    ("NamedFieldPuns"             "")
+    ("NamedWildCards"             "")
+    ("NegativeLiterals"           "")
+    ("NoNPlusKPatterns"           "")
+    ("NullaryTypeClasses"         "")
+    ("NumDecimals"                "")
+    ("OverlappingInstances"       "")
+    ("OverloadedLists"            "")
+    ("OverloadedStrings"          "overloaded-string-literals")
+    ("PackageImports"             "")
+    ("ParallelArrays"             "")
+    ("ParallelListComp"           "")
+    ("PartialTypeSignatures"      "")
+    ("PatternGuards"              "")
+    ("PatternSynonyms"            "")
+    ("PolyKinds"                  "")
+    ("PolymorphicComponents"      "")
+    ("PostfixOperators"           "")
+    ("QuasiQuotes"                "")
+    ("Rank2Types"                 "")
+    ("RankNTypes"                 "")
+    ("RebindableSyntax"           "")
+    ("RecordWildCards"            "")
+    ("RecursiveDo"                "")
+    ("RoleAnnotations"            "")
+    ("Safe"                       "")
+    ("ScopedTypeVariables"        "")
+    ("StandaloneDeriving"         "")
+    ("StrictData"                 "")
+    ("TemplateHaskell"            "")
+    ("TemplateHaskellQuotes"      "")
+    ("NoTraditionalRecordSyntax"  "")
+    ("TransformListComp"          "")
+    ("Trustworthy"                "")
+    ("TupleSections"              "")
+    ("TypeFamilies"               "")
+    ("TypeOperators"              "")
+    ("TypeSynonymInstances"       "")
+    ("UnboxedTuples"              "")
+    ("UndecidableInstances"       "")
+    ("UnicodeSyntax"              "")
+    ("UnliftedFFITypes"           "")
+    ("Unsafe"                     "")
+    ("ViewPatterns"               ""))
+  "A collection of extensions with links to GHC user guide."
+  :tag "List of all Haskell extensions with links to docs"
+  :type '(repeat (list string :tag "Extension name"
+                       string :tag "Link to the docs")))
+
 (defcustom hasky-extensions-reach 5000
   "Max number of characters from beginning of file to search.
 
@@ -271,6 +368,21 @@ with “default-extensions” or similar settings."
                 (setq exts (cl-delete ext exts :test #'string=)))
             (hasky-extensions-add ext)
             (cl-pushnew ext exts :test #'string=)))))))
+
+;;;###autoload
+(defun hasky-extensions-browse-docs (extension)
+  "Browse documentation about EXTENSION from GHC user guide in browser."
+  (interactive
+   (list
+    (let ((exts (mapcar #'car hasky-extensions-docs)))
+      (completing-read
+       "Extension: "
+       exts
+       nil t nil nil
+       (car exts)))))
+  (browse-url
+   (concat "https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#"
+           (cadr (assoc extension hasky-extensions-docs)))))
 
 (provide 'hasky-extensions)
 
