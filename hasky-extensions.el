@@ -100,7 +100,7 @@
     "TypeSynonymInstances"
     "UndecidableInstances")
   "List of commonly used Haskell extensions."
-  :tag "List of commonly used Haskell extensions."
+  :tag "List of commonly used Haskell extensions"
   :type '(repeat (string :tag "Extension name")))
 
 (defcustom hasky-extensions-docs
@@ -188,8 +188,8 @@
     ("ViewPatterns"               "view-patterns"))
   "A collection of extensions with links to GHC user guide."
   :tag "List of all Haskell extensions with links to docs"
-  :type '(repeat (list string :tag "Extension name"
-                       string :tag "Link to the docs")))
+  :type '(repeat (list (string :tag "Extension name")
+                       (string :tag "Anchor"))))
 
 (defcustom hasky-extensions-reach 5000
   "Max number of characters from beginning of file to search.
