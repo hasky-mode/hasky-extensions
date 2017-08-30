@@ -25,10 +25,12 @@ hasky-extensions RET</kbd>.
 
 ## Usage
 
-Just bind the `hasky-extensions` command, for example:
+Just bind the `hasky-extensions` and `hasky-extensions-browse-docs`
+commands, for example:
 
 ```emacs-lisp
-(global-set-key (kbd "C-c y") #'hasky-extensions)
+(global-set-key (kbd "C-c y")     #'hasky-extensions)
+(global-set-key (kbd "<next> h x" #'hasky-extensions-browse-docs))
 ```
 
 When the menu shows up, type letters assigned to the language extension you
@@ -40,6 +42,9 @@ To view available customization options, type <kbd>M-x customize-group RET
 hasky-extensions RET</kbd>. Most important variables are:
 
 * `hasky-extensions`—list of all extensions to show in the menu.
+
+* `haksy-extensions-docs`—A collection of extensions with links to GHC user
+  guide.
 
 * `hasky-extensions-reach`—how many characters from the beginning of file to
   scan. We cannot always scan entire files because they can be quite big,
@@ -54,10 +59,10 @@ hasky-extensions RET</kbd>. Most important variables are:
 * `hasky-extensions-prettifying-hook`—the hook to run after prettifying the
   extension list. For example, you could run `whitespace-cleanup` there.
 
-The package in powered by
-the [`avy-menu`](https://github.com/mrkkrp/avy-menu) library, which
-implements this handy Avy-powered popup menu. To control appearance of the
-menu, use <kbd>M-x customize-group avy-menu RET</kbd>.
+The package in powered by the
+[`avy-menu`](https://github.com/mrkkrp/avy-menu) library, which implements
+this handy Avy-powered popup menu. To control appearance of the menu, use
+<kbd>M-x customize-group avy-menu RET</kbd>.
 
 ## License
 
