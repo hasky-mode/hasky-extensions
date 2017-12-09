@@ -120,6 +120,7 @@
     ("DeriveGeneric"              "deriving-instances-of-extra-classes-data-etc")
     ("DeriveLift"                 "deriving-instances-of-extra-classes-data-etc")
     ("DeriveTraversable"          "deriving-instances-of-extra-classes-data-etc")
+    ("DerivingStrategies"         "deriving-strategies")
     ("DisambiguateRecordFields"   "record-field-disambiguation")
     ("EmptyCase"                  "empty-case-alternatives")
     ("EmptyDataDecls"             "data-types-with-no-constructors")
