@@ -66,6 +66,6 @@ this handy Avy-powered popup menu. To control appearance of the menu, use
 
 ## License
 
-Copyright © 2016–2017 Mark Karpov
+Copyright © 2016–2018 Mark Karpov
 
 Distributed under GNU GPL, version 3.
