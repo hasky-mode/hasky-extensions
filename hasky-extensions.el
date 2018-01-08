@@ -172,6 +172,7 @@
     ("Safe"                       "safe-imports")
     ("ScopedTypeVariables"        "lexically-scoped-type-variables")
     ("StandaloneDeriving"         "stand-alone-deriving-declarations")
+    ("StaticPointers"             "static-pointers")
     ("StrictData"                 "strict-by-default-data-types")
     ("TemplateHaskell"            "template-haskell")
     ("TransformListComp"          "generalised-sql-like-list-comprehensions")
