@@ -67,12 +67,11 @@
     "BangPatterns"
     "DataKinds"
     "DeriveAnyClass"
-    "DeriveDataTypeable"
     "DeriveFoldable"
     "DeriveFunctor"
     "DeriveGeneric"
     "DeriveTraversable"
-    "EmptyDataDecls"
+    "DerivingVia"
     "ExistentialQuantification"
     "ExplicitForAll"
     "ForeignFunctionInterface"
@@ -88,6 +87,7 @@
     "NoImplicitPrelude"
     "OverloadedLists"
     "PolyKinds"
+    "QuantifiedConstraints"
     "QuasiQuotes"
     "RankNTypes"
     "RecursiveDo"
@@ -121,6 +121,7 @@
     ("DeriveLift"                 "deriving-instances-of-extra-classes-data-etc")
     ("DeriveTraversable"          "deriving-instances-of-extra-classes-data-etc")
     ("DerivingStrategies"         "deriving-strategies")
+    ("DerivingVia"                "extension-DerivingVia")
     ("DisambiguateRecordFields"   "record-field-disambiguation")
     ("EmptyCase"                  "empty-case-alternatives")
     ("EmptyDataDecls"             "data-types-with-no-constructors")
@@ -162,6 +163,7 @@
     ("PatternSynonyms"            "pattern-synonyms")
     ("PolyKinds"                  "kind-polymorphism-and-type-in-type")
     ("PostfixOperators"           "postfix-operators")
+    ("QuantifiedConstraints"      "quantified-constraints")
     ("QuasiQuotes"                "template-haskell-quasi-quotation")
     ("Rank2Types"                 "arbitrary-rank-polymorphism")
     ("RankNTypes"                 "arbitrary-rank-polymorphism")
