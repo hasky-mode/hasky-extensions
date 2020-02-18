@@ -24,10 +24,6 @@
 
 ;;; Code:
 
-(require 'undercover)
-
-(undercover "hasky-extensions.el")
-
 (require 'cl-lib)
 (require 'hasky-extensions)
 
